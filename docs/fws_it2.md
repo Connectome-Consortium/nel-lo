@@ -5,7 +5,9 @@
 * https://memobase.ch/record/bar-001-SFW_0316-2 NE richtig und falsch (mehrfach vorhanden)
 * https://memobase.ch/record/bar-001-SFW_0394-2 SG korrekt
 * https://memobase.ch/record/bar-001-SFW_1311-3 FR falsch - nicht mehr Frankreich aber Freiburg i.Br.
+
 Folgerung: Verbesserung. Immer noch Amiguität bei Kürzeln, aber häufiger korrekte Treffer.
+
 Frage: Kantonskürzel die als Ort identifiziert wurden per default auf Kantone verlinken statt das Modell disambigieren zu lassen? Für CH Anwendungen vermutlich okay, skaliert aber nicht global.
 
 ## Fehlerhafte Verlinkungen
@@ -13,6 +15,7 @@ Frage: Kantonskürzel die als Ort identifiziert wurden per default auf Kantone v
 * https://memobase.ch/record/bar-001-SFW_0984-2 besser
 * https://memobase.ch/record/bar-001-CJS_0083-3_d besser
 * https://memobase.ch/record/bar-001-SFW_1220-4 besser
+
 Folgerung: deutliche Verbesserung; komplett random Entitäten werden nicht mehr verlinkt (vermutlich durch Verbesserung der sprachspezifischen Modelle, die Uebersetzungsfehler eliminieren)
 
 ## Div
