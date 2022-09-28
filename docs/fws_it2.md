@@ -23,7 +23,7 @@ Folgerung: deutliche Verbesserung; komplett random Entitäten werden nicht mehr 
 
 ## DH Feedback
 * https://memobase.ch/de/object/bar-001-SFW_0679-1
-{('Genève', 'Q71'), ('Paris', 'Q90'), ('Molotow', 'Q132899'), ('Schukow', 'Q124617'), ('Frankreichs', 'Q71084'), ('Genf-Cointrin', 'Q289972'), ('Eisenhower', 'Q9916'), ('Ehrenkompanie', 'Q1300017'), ('GE', 'Q230'), ('Genf', 'Q71'), ('Frankreichs', 'Q70972'), ('Palais des Nations', 'Q594846'), ('Amerikas', 'Q30'), ('GE', 'Q54173'), ('Eden', 'Q301637'), ('Schweiz', 'Q39'), ('Europa', 'Q46'), ('Bulganin', 'Q48093')}
+{('Paris', 'Q90'), ('Molotow', 'Q132899'), ('Schukow', 'Q124617'), ('Frankreichs', 'Q71084'), ('Genf-Cointrin', 'Q289972'), ('Eisenhower', 'Q9916'), ('Ehrenkompanie', 'Q1300017'), ('GE', 'Q230'), ('Genf', 'Q71'), ('Frankreichs', 'Q70972'), ('Palais des Nations', 'Q594846'), ('Amerikas', 'Q30'), ('GE', 'Q54173'), ('Eden', 'Q301637'), ('Schweiz', 'Q39'), ('Europa', 'Q46'), ('Bulganin', 'Q48093')}
 * * Genève-Cointrin identifiziert
 * * Palais des Nations: gefunden
 * * einige Orte verpasst (UK)
