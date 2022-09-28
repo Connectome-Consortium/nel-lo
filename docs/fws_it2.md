@@ -24,11 +24,11 @@ Folgerung: deutliche Verbesserung; komplett random Entitäten werden nicht mehr 
 ## DH Feedback
 * https://memobase.ch/de/object/bar-001-SFW_0679-1
 {('Paris', 'Q90'), ('Molotow', 'Q132899'), ('Schukow', 'Q124617'), ('Frankreichs', 'Q71084'), ('Genf-Cointrin', 'Q289972'), ('Eisenhower', 'Q9916'), ('Ehrenkompanie', 'Q1300017'), ('GE', 'Q230'), ('Genf', 'Q71'), ('Frankreichs', 'Q70972'), ('Palais des Nations', 'Q594846'), ('Amerikas', 'Q30'), ('GE', 'Q54173'), ('Eden', 'Q301637'), ('Schweiz', 'Q39'), ('Europa', 'Q46'), ('Bulganin', 'Q48093')}
-* * Genève-Cointrin identifiziert
-* * Palais des Nations: gefunden
-* * einige Orte verpasst (UK)
-* * Frankreichs falsch
-* * trotz Filter auf Orte werden teilweise Personen verlinkt. Hier könnte noch mit Abfragen an Wikidata gearbeitet werden, die beispielweise Entities entfernen, deren instance of property (P31) human (Q5) ist.
+  * Genève-Cointrin identifiziert
+  * Palais des Nations: gefunden
+  * einige Orte verpasst (UK)
+  * Frankreichs falsch
+  * trotz Filter auf Orte werden teilweise Personen verlinkt. Hier könnte noch mit Abfragen an Wikidata gearbeitet werden, die beispielweise Entities entfernen, deren instance of property (P31) human (Q5) ist.
 
 ## Title, spatial coverage
 * Titel stellt keine Probleme dar und wurde mit aufgenommen in die Liste der Entities zu den Abstracts
