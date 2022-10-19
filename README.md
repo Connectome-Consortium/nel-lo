@@ -12,7 +12,7 @@ install_requires=[
     ],
 #    python_requires=">=3.10.2",
 )
-
+```
 
 and also, https://github.com/isawnyu/webiquette needs to be installed manually and also modified in setup.py to not require python 3.10.2
 
