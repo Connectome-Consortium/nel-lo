@@ -4,6 +4,7 @@ https://github.com/isawnyu/pleiades_search_api (requires python 3.10.2)
 
 If not using python 3.10.2, it will still work, but the requirement in setup.py has to be changed
 ```
+...,
 install_requires=[
         "feedparser",
         "textnorm",
