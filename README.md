@@ -16,4 +16,11 @@ install_requires=[
 
 and also, https://github.com/isawnyu/webiquette needs to be installed manually and also modified in setup.py to not require python 3.10.2
 
+```
+git clone https://github.com/isawnyu/webiquette.git
+cd webiquette
+vi setup.py
+pip install -r requirements_dev.txt
+```
+
 spacy version TODO
