@@ -16,6 +16,6 @@ def get_pleiades_results(entity):
 
     # perform search
     results = si.search(q)
-    pprint(results["hits"], indent=4)
+    #pprint(results["hits"], indent=4)
 
-    return results
+    return results["hits"]

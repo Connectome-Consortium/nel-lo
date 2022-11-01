@@ -4,13 +4,12 @@ from os import listdir
 import json
 import argostranslate.package, argostranslate.translate
 from bs4 import BeautifulSoup
-from wikidata_utils import get_entities
-from pleiades_utils import get_pleiades_results
+import wikidata_utils
+import pleiades_utils
 
 
-PLEIADES = True  # if pleiades extraction is to be used, set this to true
+PLEIADES = True  # if pleiades extraction is to be used after wikidata, set this to true
 
-# installed_languages = argostranslate.translate.get_installed_languages()
 nlp_en = spacy.load('entitylinker2/nlp')
 print('LOADED MODEL: English')
 nlp_de = spacy.load('entitylinker_de/nlp')
@@ -76,46 +75,43 @@ def extract_from_rescs(inpath, outpath):
 
 
 def extract_from_dasch(inpath, outpath):
-    counter = 0
     for f in listdir(inpath):
-        if counter % 1000 == 0:
-            print("{} files processed, starting {}".format(counter, f))
-        counter += 1
-
         with open(inpath + f, 'r') as f_load:
-            doc = json.load(f_load)
-        for node in doc["@graph"]:
-            if "schema:abstract" in node.keys():
-                # title + abstract
-                raw_abstract = node["schema:name"] + "\n" + node["schema:abstract"]
-                cleaned_abstract = clean_text(raw_abstract)
+            output = []
+            doc = f_load.read()
 
-                language = detect(cleaned_abstract)
-                if language == 'de':
-                    nlp = nlp_de
-                elif language == 'fr':
-                    nlp = nlp_fr
-                elif language == 'it':
-                    nlp = nlp_it
-                else:
-                    nlp = nlp_en
+            language = detect(doc)
+            if language == 'de':
+                nlp = nlp_de
+            elif language == 'fr':
+                nlp = nlp_fr
+            elif language == 'it':
+                nlp = nlp_it
+            else:
+                nlp = nlp_en
 
-                entities = wikidata_utils.get_entities(cleaned_abstract, nlp, PLEIADES)
+            entities = wikidata_utils.get_entities(doc, nlp, PLEIADES)
 
-                # wikidata entities
-                if len(entities) > 0:
-                    node["entities"] = [(entities[key], key) for key in entities if key != "NIL"]
+            # wikidata entities
+            if len(entities) > 0:
+                output += [f'{entities[key]} {key}\n' for key in entities if key != "NIL"]
 
-                # pleiades entities
-                if "NIL" in entities:
-                    for entity in entities["NIL"]:
-                        candidates = get_pleiades_results(entity)
+            # pleiades entities
+            if "NIL" in entities:
+                for entity in entities["NIL"]:
+                    candidates = pleiades_utils.get_pleiades_results(entity)
+                    if len(candidates) > 0:
+                        output.append(f'Pleiades query: {entity}\n')
+                        for cand in candidates:
+                            output.append(f'{cand["title"]} {cand["uri"]}\n')
+
+        print(output)
 
         with open(outpath + f, 'w') as f_write:
-            json.dump(doc, f_write)
+            f_write.writelines(output)
 
 
-def extract_from_limc(infile):
+def extract_from_limc(infile, outfile):
     nlp = nlp_en
     with open(infile, 'r') as f_load:
         doc = json.load(f_load)
@@ -129,9 +125,11 @@ def extract_from_limc(infile):
                 node["entities"] = [(entities[key], key) for key in entities if key != "NIL"]
 
             # pleiades entities
-            if "NIL" in entities:
-                for entity in entities["NIL"]:
-                    candidates = get_pleiades_results(entity)
+            candidates = pleiades_utils.get_pleiades_results(node["labels"]["en"])
+            if len(candidates) > 0:
+                node["pleiades"] = candidates
+    with open(outfile, 'w') as f_write:
+        json.dump(doc, f_write)
 
 def sample_historic_text():
     text = """
@@ -150,7 +148,7 @@ def sample_historic_text():
 
     if "NIL" in entities:
         for entity in entities["NIL"]:
-            candidates = get_pleiades_results(entity)
+            candidates = pleiades_utils.get_pleiades_results(entity)
 
 
 if __name__ == "__main__":
@@ -158,4 +156,12 @@ if __name__ == "__main__":
     #outpath = "fws_entities/"
     #extract_from_rescs(inpath, outpath)
 
-    sample_historic_text()
+    inpath = "nello/"
+    outpath = "nello/"
+    extract_from_dasch(inpath, outpath)
+
+    #infile = "OrtsdatenLIMC.json"
+    #outfile = "LIMC_results.json"
+    #extract_from_limc(infile, outfile)
+
+    #sample_historic_text()

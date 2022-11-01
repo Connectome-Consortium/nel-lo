@@ -1,7 +1,8 @@
 import spacy
 from langdetect import detect
 
-def get_entities_multiling(text, nlp, keep_nils=False):
+
+def get_entities(text, nlp, keep_nils=False):
     """
     Given an input text and pre-trained nlp model in the appropriate language, 
     links to wikidata identifiers for entities identified from text usage to be
