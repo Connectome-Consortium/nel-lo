@@ -74,41 +74,31 @@ def extract_from_rescs(inpath, outpath):
             json.dump(doc, f_write)
 
 
-def extract_from_dasch(inpath, outpath):
-    for f in listdir(inpath):
-        with open(inpath + f, 'r') as f_load:
-            output = []
-            doc = f_load.read()
+def extract_from_dasch(text):
+    language = detect(text)
+    if language == 'de':
+        nlp = nlp_de
+    elif language == 'fr':
+        nlp = nlp_fr
+    elif language == 'it':
+        nlp = nlp_it
+    else:
+        nlp = nlp_en
 
-            language = detect(doc)
-            if language == 'de':
-                nlp = nlp_de
-            elif language == 'fr':
-                nlp = nlp_fr
-            elif language == 'it':
-                nlp = nlp_it
+    entities = wikidata_utils.get_entities(text, nlp, True)
+    print(entities)
+
+    if "NIL" in entities:
+        for entity in list(set(entities["NIL"])):
+            # title search
+            candidates = pleiades_utils.get_pleiades_results(entity, fulltext=False)
+            if len(candidates) == 0:
+                # no hits in title? try fulltext search
+                candidates = pleiades_utils.get_pleiades_results(entity, fulltext=True)
             else:
-                nlp = nlp_en
-
-            entities = wikidata_utils.get_entities(doc, nlp, PLEIADES)
-
-            # wikidata entities
-            if len(entities) > 0:
-                output += [f'{entities[key]} {key}\n' for key in entities if key != "NIL"]
-
-            # pleiades entities
-            if "NIL" in entities:
-                for entity in entities["NIL"]:
-                    candidates = pleiades_utils.get_pleiades_results(entity)
-                    if len(candidates) > 0:
-                        output.append(f'Pleiades query: {entity}\n')
-                        for cand in candidates:
-                            output.append(f'{cand["title"]} {cand["uri"]}\n')
-
-        print(output)
-
-        with open(outpath + f, 'w') as f_write:
-            f_write.writelines(output)
+                print('match on title found')
+            print(entity)
+            print(candidates)
 
 
 def extract_from_limc(infile, outfile):
